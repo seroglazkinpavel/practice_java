@@ -1,6 +1,6 @@
 package seminar_3;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 /*Каталог товаров книжного магазина сохранен в виде двумерного списка List < ArrayList < String >> так,
  * что на 0й позиции каждого внутреннего списка содержится название жанра, а на остальных позициях-
