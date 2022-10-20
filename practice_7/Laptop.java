@@ -1,19 +1,19 @@
 package practice_7;
 
 public class Laptop {
-    private String ram;
-    private String hardDrive;
+    private Integer ram;
+    private Integer hardDrive;
     private String operatingSystem;
     private String color;
 
-    public Laptop(String ram, String hardDrive, String operatingSystem, String color) {
+    public Laptop(Integer ram, Integer hardDrive, String operatingSystem, String color) {
         this.ram = ram;
         this.hardDrive = hardDrive;
         this.operatingSystem = operatingSystem;
         this.color = color;
     }
 
-    public Laptop(String ram, String hardDrive) {
+    public Laptop(int ram, Integer hardDrive) {
         this.ram = ram;
         this.hardDrive = hardDrive;
     }
@@ -22,19 +22,19 @@ public class Laptop {
 
     }
 
-    public String getRam() {
+    public Integer getRam() {
         return ram;
     }
 
-    public void setRam(String ram) {
+    public void setRam(int ram) {
         this.ram = ram;
     }
 
-    public String getHardDrive() {
+    public Integer getHardDrive() {
         return hardDrive;
     }
 
-    public void setHardDrive(String hardDrive) {
+    public void setHardDrive(Integer hardDrive) {
         this.hardDrive = hardDrive;
     }
 
@@ -60,5 +60,4 @@ public class Laptop {
                 + ", color = "
                 + color + "]";
     }
-
 }
