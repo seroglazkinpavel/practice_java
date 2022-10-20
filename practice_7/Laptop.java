@@ -1,8 +1,8 @@
 package practice_7;
 
 public class Laptop {
-    private String ram; // int
-    private String hardDrive; // int
+    private String ram;
+    private String hardDrive;
     private String operatingSystem;
     private String color;
 
@@ -56,7 +56,9 @@ public class Laptop {
 
     @Override
     public String toString() {
-        return ram + " " + hardDrive + " " + operatingSystem + " " + color;
+        return "Laptop [ram = " + ram + ", hardDrive = " + hardDrive + ", operatingSystem = " + operatingSystem
+                + ", color = "
+                + color + "]";
     }
 
 }

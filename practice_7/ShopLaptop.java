@@ -1,5 +1,7 @@
 package practice_7;
 
+import java.io.IOException;
+
 /*Подумать над структурой класса Ноутбук для магазина техники - выделить поля и методы. Реализовать в java.
 Создать множество ноутбуков.
 Написать метод, который будет запрашивать у пользователя критерий (или критерии) фильтрации и выведет ноутбуки, 
@@ -20,11 +22,13 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class ShopLaptop {
+    private static final Laptop Laptop = null;
+
     public static void main(String[] args) {
-        Laptop laptop1 = new Laptop("2", "3", "Windows 10", "white");
-        Laptop laptop2 = new Laptop("2", "4", "Linux", "black");
-        Laptop laptop3 = new Laptop("2", "6", "Windows 10", "black");
-        Laptop laptop4 = new Laptop("4", "16", "MacOS", "white");
+        Laptop laptop1 = new Laptop("2", "1", "Windows 10", "white");
+        Laptop laptop2 = new Laptop("3", "4", "Linux", "black");
+        Laptop laptop3 = new Laptop("4", "6", "Windows 10", "black");
+        Laptop laptop4 = new Laptop("5", "16", "MacOS", "white");
 
         Set<Laptop> laptops = new HashSet<>();
         laptops.add(laptop1);
@@ -49,10 +53,14 @@ public class ShopLaptop {
                 number = number / 10;
             }
             Map<String, String> map1 = myScanner(map);
-            System.out.println(myLaptop(map1, laptops));
+            Set<Laptop> laptops1 = myLaptop(map1, laptops);
+            for (practice_7.Laptop iterable_element : laptops1) {
+                System.out.println(iterable_element);
+            }
 
         } else {
             System.out.println("Извините, но это явно не число. Перезапустите программу и попробуйте снова!");
+            System.exit(1);
         }
         sc.close();
     }
@@ -82,10 +90,11 @@ public class ShopLaptop {
                 if (scn.hasNextInt()) {
                     String result = scn.nextLine();
                     map1.put("ram", result);
-                    System.out.println("Вы ввели ОЗУ ");
+                    System.out.println("Вы ввели ОЗУ " + result);
                 } else {
                     System.out
                             .println("Извините, но это явно не число. Перезапустите программу и попробуйте снова!");
+                    System.exit(1);
                 }
             }
             if (value == "ЖД") {
@@ -93,10 +102,11 @@ public class ShopLaptop {
                 if (scn.hasNextInt()) {
                     String result = scn.nextLine();
                     map1.put("hardDrive", result);
-                    System.out.println("Вы ввели ЖД ");
+                    System.out.println("Вы ввели ЖД " + result);
                 } else {
                     System.out
                             .println("Извините, но это явно не число. Перезапустите программу и попробуйте снова!");
+                    System.exit(1);
                 }
             }
             if (value == "ОС") {
@@ -104,7 +114,7 @@ public class ShopLaptop {
                 if (scn.hasNextLine()) {
                     String result = scn.nextLine();
                     map1.put("operatingSystem", result);
-                    System.out.println("Вы ввели ОС");
+                    System.out.println("Вы ввели ОС " + result);
                 }
             }
             if (value == "цвет") {
@@ -112,7 +122,7 @@ public class ShopLaptop {
                 if (scn.hasNextLine()) {
                     String result = scn.nextLine();
                     map1.put("color", result);
-                    System.out.println("Вы ввели Цвет ");
+                    System.out.println("Вы ввели Цвет " + result);
                 }
             }
         }
@@ -120,24 +130,72 @@ public class ShopLaptop {
         return map1;
     }
 
-    static Laptop myLaptop(Map<String, String> map1, Set<Laptop> laptops) {
+    static Set<Laptop> myLaptop(Map<String, String> map1, Set<Laptop> laptops) {
         Set<Laptop> laptops1 = new HashSet<>();
         for (Laptop laptop : laptops) {
-            if (map1.containsValue(laptop.getRam())) {
-                laptops1.add(laptop);
-            }
-            if (map1.containsValue(laptop.getRam()) && map1.containsValue(laptop.getHardDrive())) {
-                laptops1.add(laptop);
-            }
-            if (map1.containsValue(laptop.getRam()) && map1.containsValue(laptop.getHardDrive())
-                    && map1.containsValue(laptop.getOperatingSystem())) {
-                laptops1.add(laptop);
-            }
-            if (map1.containsValue(laptop.getRam()) && map1.containsValue(laptop.getHardDrive())
-                    && map1.containsValue(laptop.getOperatingSystem()) && map1.containsValue(laptop.getColor())) {
-                laptops1.add(laptop);
+            switch (map1.size()) {
+                case 4:
+                    if (map1.containsValue(laptop.getRam()) &&
+                            map1.containsValue(laptop.getHardDrive()) &&
+                            map1.containsValue(laptop.getOperatingSystem())) {
+                        laptops1.add(laptop);
+                    }
+                    break;
+                case 3:
+                    if (map1.containsValue(laptop.getRam()) &&
+                            map1.containsValue(laptop.getHardDrive()) &&
+                            map1.containsValue(laptop.getOperatingSystem())) {
+                        laptops1.add(laptop);
+                    }
+
+                    if (map1.containsValue(laptop.getHardDrive()) &&
+                            map1.containsValue(laptop.getOperatingSystem()) &&
+                            map1.containsValue(laptop.getColor())) {
+                        laptops1.add(laptop);
+                    }
+                    break;
+                case 2:
+                    if (map1.containsValue(laptop.getRam()) &&
+                            map1.containsValue(laptop.getHardDrive())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getRam()) &&
+                            map1.containsValue(laptop.getOperatingSystem())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getRam()) &&
+                            map1.containsValue(laptop.getColor())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getHardDrive()) &&
+                            map1.containsValue(laptop.getColor())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getOperatingSystem()) &&
+                            map1.containsValue(laptop.getColor())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getHardDrive()) &&
+                            map1.containsValue(laptop.getOperatingSystem())) {
+                        laptops1.add(laptop);
+                    }
+                    break;
+                case 1:
+                    if (map1.containsValue(laptop.getRam())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getHardDrive())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getOperatingSystem())) {
+                        laptops1.add(laptop);
+                    }
+                    if (map1.containsValue(laptop.getColor())) {
+                        laptops1.add(laptop);
+                    }
+                    break;
             }
         }
-        return (Laptop) laptops1;
+        return laptops1;
     }
 }
